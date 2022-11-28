@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+int main(){
+int n;
+cout<<"enter the number of process"<<endl;
+cin>>n;
+int b[n],c[n],a[n],t[n],w[n];
+cout<<"enter the arival time"<<endl;
+for(int i=0;i<n;i++){
+cin>>a[i];
+}
+cout<<"enter the burst time"<<endl;
+for(int i=0;i<n;i++){
+cin>>b[i];
+}
+c[0]=b[0]+a[0];
+for(int i=1;i<n;i++){
+if(a[i]>c[i-1]){
+    c[i]=c[i-1]+b[i]+(a[i]-c[i-1]);
+}
+else{
+c[i]=c[i-1]+b[i];
+}
+}
+
+for(int i=0;i<n;i++){
+t[i]=c[i]-a[i];
+}
+
+
+for(int i=0;i<n;i++){
+cout<<"trun around time of process "<<i+1<<" is "<<t[i]<<endl;
+}
+for(int i=0;i<n;i++){
+cout<<"wait time of process "<<i+1<<" is "<<t[i]-b[i]<<endl;
+}
+float sum=0,sum1=0;
+for(int i=0;i<n;i++){
+    sum=sum+t[i];
+    sum1=sum1+(t[i]-b[i]);
+}
+
+cout<<"average of turn around time is "<<sum/n<<endl;
+cout<<"average of wait time is "<<sum1/n<<endl;
+}

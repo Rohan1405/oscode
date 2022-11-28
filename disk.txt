@@ -1,0 +1,154 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+int queue[] = {98, 183, 37, 122, 14, 124, 65, 67};
+bool complete[] = {false,false,false,false,false,false,false,false};
+int head = 53;
+int total = 0;
+int limit = 199;
+int minimum = 14;
+int maximum = 183;
+bool flag = true;
+
+void fcfs(){
+	for(int i = 0; i<8; i++){
+		int diff = abs(queue[i] - head);
+		total+=diff;
+		head = queue[i];
+	}
+	cout<<"total head movements : "<<total<<endl;
+}
+
+void sstf(){
+	for(int i = 0; i<8; i++){
+		int min = 999;
+		int index;
+		for(int j = 0; j<8; j++){
+			if(!complete[j]){
+				int diff2 = abs(head - queue[j]);
+				if(diff2<min){
+					index = j;
+					min = diff2;
+				}
+			}
+		}
+		cout<<queue[index]<<" ";
+		int diff = abs(queue[index] - head);
+		total+=diff;
+		head = queue[index];
+		complete[index] = true;
+	}
+	cout<<"total head movements : "<<total<<endl;
+}
+void scan(){
+	int i = -1;
+	while(flag){
+		total++;
+		if(head == 0)
+			i = 1;
+		head = head + i;
+		for(int j = 0; j<8; j++){
+			if(!complete[j]){
+				if(head == queue[j]){
+					cout<<queue[j]<<" ";
+					complete[j] = true;
+				}
+			}				
+		}
+		for(int k = 0; k<8; k++){
+			if(complete[k] == true) flag = false;
+			else{
+				flag = true;
+				break;
+			}
+		}
+	}
+	cout<<endl<<"total head movements : "<<total<<endl;
+}
+
+void c_scan(){
+	int i = 1;
+	while(flag){
+		total++;
+		if(head == limit)
+			head = 0;
+		head = head + i;
+		for(int j = 0; j<8; j++){
+			if(!complete[j]){
+				if(head == queue[j]){
+					cout<<queue[j]<<" ";
+					complete[j] = true;
+				}
+			}				
+		}
+		for(int k = 0; k<8; k++){
+			if(complete[k] == true) flag = false;
+			else{
+				flag = true;
+				break;
+			}
+		}
+	}
+	cout<<endl<<"total head movements : "<<total<<endl;
+}
+void look(){
+	int i = -1;
+	while(flag){
+		total++;
+		if(head == minimum)
+			i = 1;
+		head = head + i;
+		for(int j = 0; j<8; j++){
+			if(!complete[j]){
+				if(head == queue[j]){
+					cout<<queue[j]<<" ";
+					complete[j] = true;
+				}
+			}				
+		}
+		for(int k = 0; k<8; k++){
+			if(complete[k] == true) flag = false;
+			else{
+				flag = true;
+				break;
+			}
+		}
+	}
+	cout<<endl<<"total head movements : "<<total<<endl;
+}
+
+void c_look(){
+	int i = 1;
+	while(flag){
+		total++;
+		if(head == maximum)
+			head = minimum - 1;
+		head = head + i;
+		for(int j = 0; j<8; j++){
+			if(!complete[j]){
+				if(head == queue[j]){
+					cout<<queue[j]<<" ";
+					complete[j] = true;
+				}
+			}				
+		}
+		for(int k = 0; k<8; k++){
+			if(complete[k] == true) flag = false;
+			else{
+				flag = true;
+				break;
+			}
+		}
+	}
+	cout<<endl<<"total head movements : "<<total<<endl;
+}
+
+int main(){
+//	fcfs();
+//	sstf();
+//	scan();
+//	c_scan();
+//	look();
+	c_look();
+}

@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+
+int at[4] = {0, 5, 6, 10};
+int bt[4] = {10, 6, 3, 4};
+int priority[4] = {3, 4, 2, 1};
+int tat[4] = {0, 0, 0, 0};
+int wt[4] = {0, 0, 0, 0};
+int t = 0;
+
+int minInd(){
+	int min = 0;
+	for(int i = 0; i<4; i++){
+		if(at[i]<=t && priority[i]<priority[min]){
+			min = i;
+		}
+	}
+	return min;
+}
+
+void ps(){
+	cout<<t<<" ";
+	for(int i = 0; i<4; i++){
+		int min = minInd();
+		cout<<"P"<<min<<" ";
+		t+=bt[min];
+		tat[min] = t - at[min];
+		wt[min] = tat[min] -bt[min];
+		priority[min] = 999;
+		cout<<t<<" ";
+	}
+	cout<<endl<<"tat wt"<<endl;
+	for(int i = 0; i<4; i++){
+		cout<<tat[i]<<" "<<wt[i]<<endl;
+	}
+}
+
+int main(){
+	ps();	
+}

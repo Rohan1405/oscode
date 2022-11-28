@@ -1,0 +1,45 @@
+#include<iostream>
+using namespace std;
+
+int at[4] = {0, 2, 4, 5};
+int bt[4] = {7, 4, 1, 4};
+int tat[4] = {0, 0, 0, 0};
+int wt[4] = {0, 0, 0, 0};
+int t = 0;
+
+int minInd(){
+	int min = 0;
+	for(int i = 0; i<4; i++){
+		if(bt[i]>bt[min]){
+			min = i;
+		}
+	}
+	for(int i = 0; i<4; i++){
+		if(at[i]<=t && bt[i]<bt[min]){
+			min = i;
+		}
+	}
+	return min;
+}
+
+void sjf(){
+	cout<<t<<" ";
+	for(int i = 0; i<4; i++){
+		int min = minInd();
+		cout<<"P"<<min<<" ";
+		t+=bt[min];
+		tat[min] = t - at[min];
+		wt[min] = tat[min] -bt[min];
+		bt[min] = 999;
+		at[min] = 999;
+		cout<<t<<" ";
+	}
+	cout<<endl<<"tat wt"<<endl;
+	for(int i = 0; i<4; i++){
+		cout<<tat[i]<<" "<<wt[i]<<endl;
+	}
+}
+
+int main(){
+	sjf();	
+}

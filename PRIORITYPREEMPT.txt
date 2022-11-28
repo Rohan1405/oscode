@@ -1,0 +1,63 @@
+#include<iostream>
+using namespace std;
+
+int at[4] = {0, 5, 6, 10};
+int bt[4] = {10, 6, 3, 4};
+int ct[4] = {0, 0, 0, 0};
+int rat[4] = {0, 5, 6, 10};
+int rbt[4] = {10, 6, 3, 4};
+int priority[4] = {3, 4, 2, 1};
+bool complete[4] = {false, false, false, false};
+int tat[4] = {0, 0, 0, 0};
+int wt[4] = {0, 0, 0, 0};
+int t = 0;
+bool flag = true;
+int index;
+
+int minInd(){
+	int shortest = 10000;
+	for(int i = 0; i<4; i++){
+		if(!complete[i]){
+			if(at[i]<=t && priority[i]<shortest){
+				shortest = priority[i];
+				index = i;
+			}
+		}
+	}
+	return index;
+}
+
+void ps(){
+	cout<<t<<" ";
+	while(flag){
+		int min = minInd();
+		cout<<"P"<<min<<" ";
+		t+=1;		
+		bt[min] -= 1;
+		if(bt[min] == 0){
+//			priority[min] = 999;
+			complete[min] = true;
+			ct[min] = t;
+		}
+		cout<<t<<" ";
+		for(int i = 0; i<4; i++){
+			if(complete[i] == true) flag = false;
+			else{
+				flag = true;
+				break;
+			}
+		}
+	}
+	for(int i = 0; i<4; i++){
+		tat[i] = ct[i] - rat[i];
+		wt[i] = tat[i] - rbt[i];
+	}
+	cout<<endl<<"tat wt"<<endl;
+	for(int i = 0; i<4; i++){
+		cout<<tat[i]<<" "<<wt[i]<<endl;
+	}
+}
+
+int main(){
+	ps();	
+}
